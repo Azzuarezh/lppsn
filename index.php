@@ -16,7 +16,8 @@
 	<!-- icon fonts font Awesome -->
 	<link href="assets/css/font-awesome.min.css" rel="stylesheet">
 	<link rel='stylesheet' id='camera-css'  href='assets/css/camera.css' type='text/css' media='all'>
-	<link rel="stylesheet" type="text/css" href="assets/css/slicknav.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/slicknav.css"/>
+	<link rel="stylesheet" type="text/css" href="assets/css/datatables.min.css"/>
 	<link rel="stylesheet" href="assets/css/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
 
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700|Open+Sans:700' rel='stylesheet' type='text/css'>
@@ -32,7 +33,18 @@
 		margin-bottom:0 !important;
 		margin-top: 10px;
 	}
-	
+	.nav-tabs > li > a{
+	  border: medium none;
+	  color:#fff;
+	}
+	.nav-tabs > li > a:hover{
+	  	background-color: rgba(0,0,0,.5) !important;
+	    border: medium none;
+	    border-radius: 0;	    
+	}	
+	.nav-tabs > li.active > a{
+		background-color: rgba(0,0,0,.5) !important;
+	}
     </style>
 	<!--[if lt IE 9]>
 	<script src="assets/js/html5shiv.js"></script>
@@ -162,46 +174,119 @@
 						About Us
 					</span>
 				</h3><!-- /.section-name -->
-				<h2 class="section-title style8">
-					JURUSAN<br/>KAMPUS LPPSN</h2>
-				<!-- /.Section-title  -->
-		<?php
-        include "config/koneksi.php";       
-        $jurusan=mysql_query("SELECT * FROM tb_jurusan");
-        while ($r=mysql_fetch_array($jurusan)){         
-          echo "<p><p class='section-description style4'><strong>Jurusan $r[nama_jurusan]</strong></p>";          
-          echo "<p>$r[keterangan]</p>";
-          
-          for($i=1; $i<=8; $i++)
-          {           
-            
-            echo "<div align='center'>";
-              echo "<p> &nbsp; </p>";
-              echo "<p> <b> SEMESTER $i </b> </p>";
-              
-              // Table--------------------
-              echo"<table id='tbl_'$r[kode_jurusan]' border='3' cellspacing='0' cellpadding='0'>";
-              $matkul=mysql_query("SELECT * FROM tb_matkul where kode_jurusan='$r[kode_jurusan]' and semester = $i");             
-              echo"<tr>
-                  <th>kode matakuliah</th>
-                  <th>nama matakuliah</th>
-                  <th>Sks</th>
-                </tr>";
-              while ($r_matkul=mysql_fetch_array($matkul)){
-                echo"<tr>
-                  <td>$r_matkul[kode_matkul]</td>
-                  <th>$r_matkul[nama_matkul]</th>
-                  <th>$r_matkul[sks]</th>
-                </tr>"; 
-              }
-              echo"</table>";
-              //------------------------
-            echo "</div>";
-          }       
-          
-        }
-        ?>		
-		
+				<h4 class="section-description">
+					LEMBAGA PENGEMBANGAN PENDIDIKAN SWASTA NASIONAL (LPPSN)
+				</h4><!-- /.Section-title  -->
+				<div>
+				  <!-- Nav tabs -->
+				  <ul class="nav nav-tabs" role="tablist">
+				    <li role="presentation" class="active"><a href="#tentang" aria-controls="tentang" role="tab" data-toggle="tab">Tentang</a></li>
+				    <li role="presentation"><a href="#jurusan-stmik" aria-controls="jurusan-stmik" role="tab" data-toggle="tab">STMIK</a></li>
+				    <li role="presentation"><a href="#jurusan-stie" aria-controls="jurusan-stie" role="tab" data-toggle="tab">STIE</a></li>				    
+				  </ul>
+
+				  <!-- Tab panes -->
+				  <div class="tab-content">
+				    <div role="tabpanel" class="tab-pane active" id="tentang">				    
+					    <div class="row">
+						  <p align="justify"><strong>Sejarah</strong><br>
+						    Lembaga Pengembangan Pendidikan  Swasta Nasional (LPPSN) berawal dari adanya dorongan untuk turut aktif berperan  dalam memajukan pendidikan di Indonesia. Berdiri pada bulan April 2014, memupuhkan  prinsip dan semangat management untuk menjadikan LPPSN sebagai salah satu  Insitusi Pendidikan Legal dan Formal terbaik di Indonesia.<br>
+						    LPPSN menyelenggarakan program Strata  1 (S1) dengan dua Studi yaitu Program Studi Teknik Informatika dan Management  Bisnis, sekaligus Program Strata 2 (S2) Magister Management (MM) dan Magister  Sains (M.Si). Saat ini semua Program Studi yang diselenggarakan oleh LPPSN  telah mendapatkan peringkat TERAKREDITASI dari BAN-PT.</p>
+	                      <p align="justify"><strong>Visi</strong><br>
+	                        Agar pengolahan lebih terarah,  maka dirumuskan Visi LPPSN sebagai berikut :<br>
+	                        Menjadi  penyelenggara pendidikan tinggi terbaik dengan kualitas lulusan yang mampu  bersaing di pasar global maupun nasional dengan mengutamakan cara berfikir yang  kritis, kreatif, patriotik, ahli dan berintegritas tinggi serta menghasilkan  produk penelitian dan pengabdian masyarakat yang dapat mendukung daya saing  bangsa Indonesia.</p>
+	                      <p align="justify"><strong>Misi</strong><br>
+	                        Adapun misi LPPSN dirumuskan  sebagai berikut :</p>
+	                      <div align="justify">
+	                        <ul>
+	                          <li>Menyelenggarakan Pendidikan  Tinggi dan kajian ilmiah serta sosialisasinya berbasiskan nilai-nilai Pancasila  1 Juni 1945.</li>
+	                          <li>Menyelenggarakan Pendidikan  Tinggi yang mengupayakan lulusannya untuk meningkatkan kualitas kehidupan  dirinya, keluarganya dan masyarakat Indonesia.</li>
+	                          <li>Menyelenggarakan kegiatan  penelitian dan pengabdian masyarakat untuk menemukan, mengembangkan, dan  menyebarluaskan ilmu pengetahuan dan teknologi khususnya di bidang Industri  Maritim, Industri Teknologi Informasi, Industri Pertanian dan Industri Energi  yang berbasiskan energi primer berkelanjutan yang memiliki niali tambah bagi  bangsa Indonesia.</li>
+	                          <li>Mengutamakan lahirnya para  wirausaha yang nasionalistik produktif, inovatif dan berwawasan global.</li>
+	                          <li>Menyelenggarakan tata kelola  pendidikan tinggi yang baik, bersih, dan akuntabel dalam pelaksanaan otonomi  perguruan tinggi.</li>
+	                        </ul>
+	                      </div>
+	                      <p align="justify"><strong>Tujuan</strong><br>
+	                        Tujuan LPPSN dirumuskan sebagai  berikut :</p>
+	                      <div align="justify">
+	                        <ul>
+	                          <li>Menghasilkan lulusan yang  menguasai ilmu pengetahuan dan teknologi yang menjunjung tinggi nilai-nilai  pancasila.</li>
+	                          <li>Menciptakan produk-produk  penelitian dan pengabdian masyarakat yang mendukung pembangunan daerah dan nasional,  serta berkontribusi pada terwujudnya kesejahteraan masyarakat.</li>
+	                          <li>Mewujudkan tata kelola perguruan  tinggi yang baik, bersih, dan akuntable dalam pelaksanaan otonomi perguruan  tinggi.</li>
+	                        </ul>
+	                      </div>
+	                      <p align="justify"><strong>Budaya Organisasi</strong><br>
+	                        Budaya organisasi yang  diterapkan pada LPPSN adalah budaya PIKIR, yaitu :</p>
+	                      <div align="justify">
+	                        <ul>
+	                          <li><strong><em>P</em></strong><strong>rofesionalisme     </strong>: Meningkatkan kompetensi secara  berkelanjutan untuk memberikan pelayanan terbaik kepada pelanggan internal dan  bangsa Indonesia.<strong></strong></li>
+	                          <li><strong><em>I</em></strong><strong>ntegritas           </strong>: Memiliki kepribadian yang jujur, tulus,  disiplin, konsisten, berani dan bertanggungjawab demi kepentingan mayoritas  rakyat.<strong></strong></li>
+	                          <li><strong><em>K</em></strong><strong>erjasama          </strong>: Menjalin kemitraan yang harmonis baik  internal perguruan tinggi maupun masyarakat luas.<strong></strong></li>
+	                          <li><strong><em>I</em></strong><strong>novasi                    </strong>: Berfikir kritis dan kreatif untuk proses bisnis yang  mengandalkan sumber daya manusia dan produk dalam negeri dan berorientasi pasar  global.<strong> </strong></li>
+	                          <li><strong><em>R</em></strong><strong>espek                    </strong>: Saling menghargai dan mneghormati untuk  menjaga integritas keilmuan dan pengetahuan yang berdimensi lingkungan hidup.<strong></strong></li>
+	                        </ul>
+	                        <strong><br clear="all">
+	                        </strong>
+	                      </div>
+	                      <p align="center"><strong>Struktur  Organisasi</strong><br>
+	                        <strong>     </strong>Adapun struktur organisai LPPSN  dapat dilihat pada gambar berikut :<br>
+	                        
+	                      <img src="assets/images/struktur_lppsn.png" width="653" height="543">
+	                      </p>
+	                      <div align="justify"><!-- /.col-sm-4 -->	                 
+	                        <br>
+	                        <span class="social-btn-box facebook-btn-container">
+	                          <a href="#" class="facebook-btn">
+	                            <i class="fa fa-facebook"></i>
+	                          </a><!-- /.facebook-btn -->
+	                        </span><!-- /.social-btn-box -->
+	                        
+	                        <span class="social-btn-box twitter-btn-container">
+	                          <a href="#" class="twitter-btn">
+	                            <i class="fa fa-twitter"></i>
+	                          </a><!-- /.twitter-btn -->
+	                        </span><!-- /.social-btn-box -->
+	                        
+	                        <span class="social-btn-box linkedin-btn-container">
+	                          <a href="#" class="linkedin-btn">
+	                            <i class="fa fa-linkedin"></i>
+	                          </a><!-- /.linkedin-btn -->
+	                        </span><!-- /.social-btn-box -->
+	                        
+	                        <span class="social-btn-box github-btn-container">
+	                          <a href="#" class="github-btn">
+	                            <i class="fa fa-github-alt"></i>
+	                          </a><!-- /.github-btn -->
+	                        </span><!-- /.social-btn-box -->
+	                      </div>
+						</div>
+				    </div>
+				    <div role="tabpanel" class="tab-pane" id="jurusan-stmik">
+						<h4 class="section-description"></h4>
+						<p class="deskripsi"></p>
+						<?php 					
+								for($i=1; $i<=8;$i++){
+									echo "<p class='text-center'>Semester $i</p>";
+									echo "<table id='stmik_$i' style='width:100%' class='table-bordered'></table>";
+								}
+							?>
+						
+						Total SKS = 152					
+				    </div>
+				    <div role="tabpanel" class="tab-pane" id="jurusan-stie">
+				    <h4 class="section-description"></h4>
+						<p class="deskripsi"></p>
+						<?php						
+						for($i=1; $i<=8;$i++){
+							echo "<p class='text-center'>Semester $i</p>";
+							echo "<table id='stie_$i' style='width:100%' class='table-bordered'></table>";
+						}
+						?>
+					</div>				   
+				  </div>
+
+				</div>
+				<!-- /.Section-title  -->		
 	</section><!-- /#about -->
 	<!-- About Us Section End -->
 
@@ -403,6 +488,7 @@
 		<script src="assets/js/sorting.js" type="text/javascript"></script>
 		<script src="assets/js/moment-with-locales.js" type="text/javascript"></script>
 		<script src="assets/js/jquery.isotope.js" type="text/javascript"></script>
+		<script src="assets/js/datatables.min.js" type="text/javascript"></script>
         <script async defer src="http://maps.google.com/maps/api/js?key=AIzaSyAMcdNoKweM7d8GF4Lorkqs66c9knwiQDs&callback=initMap"></script>
 		<!-- Custom JavaScript Functions -->
 		<script type="text/javascript" src="assets/js/functions.js"></script>

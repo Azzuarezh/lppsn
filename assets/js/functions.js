@@ -213,9 +213,52 @@ $(window).load(function () {
       $('#years').text(years);
       $('#hours').text(hours);      
       $('#seconds').text(seconds);  
-    } 
+    }    
     setInterval(updateTime, 1000);
     
+    function callJurusan(kode_jurusan){
+      for (var i =0;i< kode_jurusan.length;i++) {
+        $.ajax({
+        type:'GET',
+        url:'php/tbl_jurusan.php',
+        data:{jurusan:kode_jurusan[i]}
+        }).done(function(res){
+        //var res = JSON.parse(result); 
+                 
+          if(res[0].kode_jurusan==1){
+            $('#jurusan-stmik').find('h4.section-description').html(res[0].nama_jurusan);
+            $('#jurusan-stmik').find('p.deskripsi').html(res[0].keterangan);
+          }else {
+            $('#jurusan-stie').find('h4.section-description').html(res[0].nama_jurusan);
+            $('#jurusan-stie').find('p.deskripsi').html(res[0].keterangan);
+          }
+        })
+      }
+        
+    }
+
+    function dataTabling(){
+      for (var i = 1 ; i <= 8; i++) {
+        var stmik = "php/matkul.php?jurusan=1&semester="+i;
+        var stie = "php/matkul.php?jurusan=2&semester="+i;
+        $('table#stmik_'+i).DataTable({
+          "dom":"tr",
+          "serverSide":true,
+          "ajax":stmik,
+          "columns":[{title:'kode mata kuliah',data:0},{title:'nama mata kuliah',data:1},{title:'sks',data:2}]
+        })
+        $('table#stie_'+i).DataTable({
+          "serverSide":true,
+          "dom":"tr",
+          "ajax":stie,
+          "columns":[{title:'kode mata kuliah',data:0},{title:'nama mata kuliah',data:1},{title:'sks',data:2}]
+        })
+        console.log(i)
+      }
+    }
+
+    callJurusan([1,2]);
+    dataTabling();
 });
  /* Preloder End
 -------------------------------------------------------------------*/

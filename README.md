@@ -3,7 +3,7 @@ Project web Kampus
 
 # Cara pakai
 Clone/download file ini trus taro di xampp/htdocs atau appserv/www
-sebelum itu masuk ke <a href="#Config-database">Config database</a> dulu.
+sebelum itu masuk ke <a href="#config-database">Config database</a> dulu.
 
 # Config database
 
@@ -13,4 +13,5 @@ ganti koneksinya di config/koneksi.php
 # fungsi javascript
 
 kumpulan fungsi javascript ada di assets/js/functions.js
+terdiri dari jquery , google map sama perintilan laen
 

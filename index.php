@@ -38,12 +38,13 @@
 	  color:#fff;
 	}
 	.nav-tabs > li > a:hover{
-	  	background-color: rgba(0,0,0,.5) !important;
+	  	background-color: rgba(0,0,0,0) !important;
 	    border: medium none;
 	    border-radius: 0;	    
 	}	
 	.nav-tabs > li.active > a{
-		background-color: rgba(0,0,0,.5) !important;
+		background-color: rgba(0,0,0,0) !important;
+		color: #fff!important;
 	}
     </style>
 	<!--[if lt IE 9]>

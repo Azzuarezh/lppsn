@@ -185,20 +185,24 @@ jQuery(document).ready(function($) {
 $(window).load(function () {    
     "use strict";
     $("#loader").fadeOut();
-    $("#preloader").delay(350).fadeOut("slow");   
-    var bannerArray = ['Good','Dude','yeah','kuy?'];   // your code puts strings into this array
+    $("#preloader").delay(350).fadeOut("slow");     
+    var bannerArray = [];    
     var bannerIndex = -1;
 
-    var intervalID = setInterval(function() {
-        ++bannerIndex;
-        if (bannerIndex >= bannerArray.length) {
-            bannerIndex = 0;
-        }
-        $('#fadeout-text').fadeOut(function(){
-            $(this).text(bannerArray[bannerIndex]);
-        }).fadeIn();
-        //setTickerNews(newsArray[curNewsIndex]);   // set new news item into the ticker
-    }, 4000);
+     $.ajax({
+              type:'GET',
+              url:'php/judul.php',                            
+              success:function(res){
+                bannerArray = res.banner;
+                setInterval(function() {
+                ++bannerIndex;
+                if (bannerIndex >= bannerArray.length) {
+                    bannerIndex = 0;
+                }
+                $('#fadeout-text').fadeOut(function(){$(this).text(bannerArray[bannerIndex]);}).fadeIn();}, 4000);
+              }        
+            })    
+    
 
     function updateTime(){  
       var dt = moment().format('DD/M');
@@ -233,8 +237,7 @@ $(window).load(function () {
             $('#jurusan-stie').find('p.deskripsi').html(res[0].keterangan);
           }
         })
-      }
-        
+      }    
     }
 
     function dataTabling(){
@@ -245,15 +248,20 @@ $(window).load(function () {
           "dom":"tr",
           "serverSide":true,
           "ajax":stmik,
-          "columns":[{title:'kode mata kuliah',data:0},{title:'nama mata kuliah',data:1},{title:'sks',data:2}]
+          "columns":[
+                      {title:'kode mata kuliah',className:'text-center',data:0},
+                      {title:'nama mata kuliah',className:'text-center',data:1},
+                      {title:'sks',className:'text-center',data:2}]
         })
         $('table#stie_'+i).DataTable({
           "serverSide":true,
           "dom":"tr",
           "ajax":stie,
-          "columns":[{title:'kode mata kuliah',data:0},{title:'nama mata kuliah',data:1},{title:'sks',data:2}]
-        })
-        console.log(i)
+          "columns":[
+                      {title:'kode mata kuliah',className:'text-center',data:0},
+                      {title:'nama mata kuliah',className:'text-center',data:1},
+                      {title:'sks',className:'text-center',data:2}]
+        })        
       }
     }
 
